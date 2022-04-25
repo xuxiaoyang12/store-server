@@ -1,0 +1,192 @@
+
+<!----------------------->
+
+<!--author : xuxiaoyang-->
+<!--date   : 2021-12-02 -->
+
+<!----------------------->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<style type="text/css">
+    
+.container {
+    font-family: cursive;
+    color: #069287;
+}
+
+.left {
+    display: inline-block;
+    width: 48%;
+    border:3px solid #c1c9c1;
+    padding: 10px;
+    height: 600px;
+
+}
+
+.right {
+    display: inline-block;
+    width: 48%;
+    height: 600px;
+    border:3px dashed #c1c9c1;
+    padding: 10px;
+}
+
+#result {
+    overflow: auto;
+    height: 85%;
+    padding: 10px;
+    border:3px solid #d6d7d6;
+    color: brown;
+    width: 100%;
+}
+.left-context {
+    position: absolute;
+    overflow: auto;
+    height: 600px;
+    width: 600px;
+}
+
+.context {
+    position: absolute;
+    height: 600px;
+    width: 65%;
+
+}
+button {
+    border: 0px;
+    border-radius: 3px;
+    background: #e9686b;
+    padding: 7px 15px;
+    cursor: pointer;
+    color: #FFF;
+    margin: 3px 5px 3px 5px;
+
+}
+
+button:hover {
+    background: #b34d4e;
+}
+
+.ws {
+    height: 30px;
+    width: 50%;
+    padding: 2px 2px 2px 5px;
+}
+</style>
+<body>
+    <div class="container">
+    <h1 style="font-family: cursive">控制台</h1>
+    <div>
+        <div class="left" style="display: inline-block;width: 28%">
+            <div class="left-context">
+                <div>
+                    <h3>WebSocket工具</h3>
+                    <div style="padding: 10px 5px 10px 10px">请输入webnet连接地址：</div>
+                    <input id="wsAddress" class="ws" type="text" value="ws://192.168.41.205:9002/ws/" title="ws连接地址">
+                    <br/>
+                    <div style="padding: 10px 5px 10px 10px">请输入注册    title：</div>
+                    <input id="title" class="ws" type="text" value="#A:WEBNET.ORDER.ENTRUST" title="注册title">
+                    <br/>
+                    <div style="padding: 10px 5px 10px 10px">请输入展示人员trader：</div>
+                    <input id="trader" class="ws" type="text" value="xxy" title="注册title">
+                    <br/>
+                    <div style="padding: 10px 5px 10px 10px">
+                        <button  onclick="connect()">连接</button>
+                        <button  onclick="clearScan()">清屏</button>
+                    </div>
+                    
+
+                </div>
+                <br/>
+               
+
+            </div>
+        </div>
+        <div class="right" style="display: inline-block;width: 68%">
+            <div class="context">
+                <h3 style="width: 50%">执行结果：<span id="num"></span></h3>
+                <div id="result">
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</div>
+<script>
+    var dom = document.getElementById("result");
+    var num = 0;
+    function connect() {
+        var wsObj = new WebSocket(document.getElementById("wsAddress").value);   //建立连接
+        wsObj.onopen = function(){  //发送请求
+            num = 0;
+            wsObj.send(document.getElementById("title").value);
+            console.log("已发送")
+            dom.innerHTML =  "</br>"
+                    + "建立连接："
+                    + document.getElementById("wsAddress").value
+                    + document.getElementById("title").value
+        };
+        wsObj.onmessage = function(ev){  //获取后端响应
+            //获取响应
+            console.log(ev.data);
+            var data = ev.data;
+            var index = ev.data.indexOf(":");
+            var title = ev.data.substring(0,index);
+            var result = ev.data.substring(index+1);
+            var dom = document.getElementById("result");
+            if("#B" == title) {
+                dom.innerHTML = dom.innerHTML +  "</br>连接成功："+data;
+                num ++;
+            } else {
+                var json = eval("("+result+")");
+                var trader = json.trader;
+                if(trader == undefined || trader == document.getElementById("trader").value ) {
+                    dom.innerHTML = dom.innerHTML 
+                        + "</br>" 
+                        + "----------------------------------------------------------------------------"
+                        + "</br>" 
+                        + "----------------------------------------------------------------------------"
+                        + "</br>" 
+                        + "推送报文:"
+                        + "</br>"
+                        + "主题（title）:"+title
+                        + "</br>"
+                        + "<pre>"+JSON.stringify(eval("("+result+")"),null,4)+"</pre>"
+                        + "</br>"
+                        + "----------------------------------------------------------------------------"
+                        + "</br>"
+                        + "----------------------------------------------------------------------------"    
+                        ;
+                        num ++;
+                }
+
+                
+            }
+            
+            document.getElementById("num").innerHTML = num; 
+        };
+        wsObj.onclose = function(ev){
+            dom.innerHTML = dom.innerHTML 
+                    + "</br>"
+                    +"连接关闭："+ev.data;
+        };
+        wsObj.onerror = function(ev){
+            dom.innerHTML = dom.innerHTML 
+                    + "</br>"
+                    +"连接错误："+ev.data;
+        };
+    }
+    
+    function clearScan() {
+        // body...
+        dom.innerHTML = "清屏完成";
+    }
+</script>
+</body>
+</html>
