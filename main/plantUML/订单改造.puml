@@ -1,0 +1,25 @@
+
+
+@startuml
+!theme plain
+(*) --> Er回执1
+Er回执 --> cswap
+Er回执 --> ideal
+Er回执 --> ecp
+Er回执 --> cfets
+Er回执 --> internal
+
+' 主流程
+cfets --> er
+
+
+--> (*)
+
+' 订单状态
+
+回执 --> 执行中
+回执 --> 部分成交
+回执 --> 撤销
+回执 --> 成交
+@enduml
+
