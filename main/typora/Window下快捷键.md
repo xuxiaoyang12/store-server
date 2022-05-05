@@ -206,6 +206,16 @@
 | `Ctrl+Alt+S`       | 弹出设置页面 `setting`              | √    |
 | `Ctrl+Shift+Alt+S` | 弹出项目接口窗口`Project structure` | √    |
 | `Ctrl+B`           | 光标所在的类或方法的使用            | √    |
+| `alt+1`            | 打开/隐藏 `Project`                 | √    |
+| `alt+2`            | 打开/隐藏 `Bookmarks`               | √    |
+| `alt+3`            | 打开/隐藏 `Find`                    | √    |
+| `alt+4`            | 打开/隐藏 `Run`                     | √    |
+| `alt+5`            | 打开/隐藏 `Debug`                   | √    |
+| `alt+7`            | 打开/隐藏  `Structure`  类结构      | √    |
+| `alt+8`            | 打开/隐藏 `service`窗口             | √    |
+| `alt+9`            | 打开/隐藏 `Git`窗口                 | √    |
+| `alt+0`            | 打开/隐藏  `commit`窗口             | √    |
+|                    |                                     |      |
 
 ### 文件内容操作
 
