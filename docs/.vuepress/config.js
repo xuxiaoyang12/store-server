@@ -17,7 +17,7 @@ module.exports = {
                 text: '导航栏',
                 items: [
                     { text: '文档', link: '/main/typora/' },
-                    { text: 'typora', link: '/' }
+                    // { text: 'typora', link: '/' }
                 ]
             },
             { text: '关于', link: '/about/' },
@@ -39,7 +39,7 @@ module.exports = {
                     ],
                 },
             ],
- 
+
             // '/': [
             //     ['','设置的主题'],
 
@@ -49,12 +49,6 @@ module.exports = {
                   title: '外汇交易中心',  //组名
                   children: [
                     ['外汇交易和外汇市场','外汇交易和外汇市场'] // [0] 文件名 [1] 展示名称
-                  ],
-              },
-              {
-                  title: '订单改造',  //组名
-                  children: [
-                    ['Window下快捷键','Window下快捷键'] // [0] 文件名 [1] 展示名称
                   ],
               },
               {
@@ -71,16 +65,16 @@ module.exports = {
                   ],
               }
             ],
+            // 关于我
+            '/about/': [
+              ['','关于']
+            ],
             '/':[
               ['','首页']
             ],
-            '/about/':[
-              ['','关于']
-            ]
- 
+
         },
         sidebarDepth: 4
    },
-  
-}
 
+}
