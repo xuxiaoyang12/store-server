@@ -2,6 +2,7 @@
 module.exports = {
   title: "亦枫禾木",
   description: '文档记录 存档回归',
+  base:'/docs/',
   head: [
     ['link', { rel: 'icon', href: '/logo.png' }]
   ],
@@ -35,7 +36,8 @@ module.exports = {
                     title: '订单改造',
                     children: [
                       ['订单改造','订单改造'],
-                      ['未命名','语法']
+                      ['未命名','语法'],
+                      ['document','常用的文档站搭建框架']
                     ],
                 },
             ],
