@@ -1,6 +1,14 @@
 const PATH = require('path')
 const fs = require('fs')
 
+// 目录连接符
+const SUFFIX = '\/'
+// 全局替换符
+const ALL_SUFFIX = /\//g
+
+const NAV_LIST = ['\/main\/typora\/','\/main\/产品1.0\/']
+
+//const NAV_LIST []
 // 字符串工具类
 const str = {
     /**
@@ -40,8 +48,8 @@ const str = {
  */
 
 function sortDir (a, b) {
-    let al = a.parent.toString().split("\\").length
-    let bl = b.parent.toString().split("\\").length
+    let al = a.parent.toString().split(SUFFIX).length
+    let bl = b.parent.toString().split(SUFFIX).length
     if (al > bl) {
         return -1
     }
@@ -65,7 +73,7 @@ const filehelper = {
     getAllFiles: (rpath, unDirIncludes, SuffixIncludes) => {
         let filenameList = []
         fs.readdirSync(rpath).forEach((file) => {
-            let fileInfo = fs.statSync(rpath + '\/' + file)
+            let fileInfo = fs.statSync(rpath + SUFFIX + file)
             if (fileInfo.isFile() && !unDirIncludes.includes(file) && !str.contains(file, "img", true)) {
                 // 只处理固定后缀的文件
                 if (SuffixIncludes.includes(file.split('.')[1])) {
@@ -100,7 +108,7 @@ const filehelper = {
             // isDirectory() 不接收任何参数,如果是目录(文件夹)返回true,否则返回false
             // 如果是目录,且不包含如下目录
             if (fs.statSync(temp).isDirectory() && !item.startsWith(".") && !unDirIncludes.includes(item)) {
-                result.push(mypath + '\/' + item + '\/')
+                result.push(mypath + SUFFIX + item + SUFFIX)
                 result = result.concat(getAllDirs(temp, unDirIncludes))
             }
         })
@@ -130,7 +138,7 @@ const sideBarTool = {
         allDirs.forEach(item => {
             let dirFiles = filehelper.getAllFiles(item, unDirIncludes, SuffixIncludes)
             let dirname = item.replace(RootPath, "")
-            dirname = dirname.replace(/\//g, '/')
+            dirname = dirname.replace(ALL_SUFFIX, '/')
             if (dirFiles.length > 0) {
                 sidebars[dirname] = dirFiles
             }
@@ -169,27 +177,110 @@ const sideBarTool = {
      *    ]
      * }]
      */
-    genSideBarGroup: (RootPath, unDirIncludes, SuffixIncludes, { title = '', children = [''], collapsable = true, sidebarDepth = 2 }) => {
+    genSideBarGroup111: (RootPath, unDirIncludes, SuffixIncludes, { title = '', children = [''], collapsable = true, sidebarDepth = 2 }) => {
         // 准备接收
         let sidebars = []
         let allDirs = filehelper.getAllDirs(RootPath, unDirIncludes)
+        // console.log(allDirs);
         allDirs.forEach((item) => {
             let children = filehelper.getAllFiles(item, unDirIncludes, SuffixIncludes)
+            
             let dirname = item.replace(RootPath, "")
-            let titleTemp = item.replace(RootPath + '\\view', "")
-            title = titleTemp.replace(/\\/g, '')
+            let titleTemp = item.replace(RootPath + SUFFIX+'view', "")
+            title = titleTemp.replace(ALL_SUFFIX, '/')
+            console.log(item,children,dirname,titleTemp,title)
             if (children.length > 1) {
-                children = children.flatMap((vo, idx) => [[dirname.replace(/\\/g, '/') + vo, vo]])
+                children = children.flatMap((vo, idx) => [[dirname.replace(ALL_SUFFIX, '/') + vo, vo]])
             }
             let Obj = {
                 title,
                 collapsable: true,
                 sidebarDepth: 2,
-                children: children.length > 1 ? children : [dirname.replace(/\\/g, '/')]
+                children: children.length > 1 ? children : [dirname.replace(ALL_SUFFIX, '/')]
             }
             sidebars.push(Obj)
         })
         return sidebars
+    },
+    genSideBarGroup: (RootPath, unDirIncludes, SuffixIncludes, { title = '', children = [''], collapsable = true, sidebarDepth = 2 }) => {
+        // 准备接收
+        let sidebars = []
+        let allDirs = filehelper.getAllDirs(RootPath, unDirIncludes)
+        // console.log(allDirs);
+        let result = new Map();
+        allDirs.forEach((item) => {
+            let children = filehelper.getAllFiles(item, unDirIncludes, SuffixIncludes)
+            // 目录名称
+            let dirname = item.replace(RootPath, "")
+            let linkName = dirname.replace(ALL_SUFFIX,"/")
+            // 标题名称
+            let titleTemp = item.replace(RootPath, "")
+            title = titleTemp.replace(ALL_SUFFIX, '/')
+            if (children.length > 0) {
+                children = children.flatMap((vo, idx) => [[dirname.replace(ALL_SUFFIX, '/') + vo, vo]])
+            }
+            let Obj = {
+                title,
+                children: children.length > 0 ? children : [dirname.replace(ALL_SUFFIX, '/')]
+            }
+            sidebars.push(Obj)
+        })
+
+
+        let nav_re =[[],[]]
+        console.log("nav_re",JSON.stringify(sidebars))
+        for(bar in sidebars) {
+            let item1 = sidebars[bar];
+            let tit = item1.title;
+            // 遍历去除外层目录
+            let i = 0;
+            for(let num in NAV_LIST) {
+                nav = NAV_LIST[num]
+                if(tit.indexOf(nav) >= 0) {
+                    tit = tit.replace(nav,'')
+                    tit = tit.replace(/\//g,'')
+                    item1.title = tit;
+                    item1.children.forEach((ite)=>{
+                            let it = ite[0]
+                            it = it.replace(nav,'')
+                            ite[0] = it;
+                    })
+                    nav_re[i].push(item1);
+                    break;
+                }
+                i++;
+            }
+        }
+
+        console.log(nav_re)
+        // 去除 /
+        let nav_result =[[],[]]
+        for(let a in nav_result) {
+            for(let j in nav_re[a]) {
+                let na = nav_re[a][j]
+                if(na.title != '' && na.title != 'main') {
+                    nav_result[a].push(na)
+                } else {
+                    let ch = [];
+                    na.children.forEach((item)=>{
+                        if(item[0] != '') {
+                            ch.push(item);
+                        }
+                    })
+                    na.title = '首页'
+                    na.children = ch;
+                    nav_result[a].push(na)
+                }
+            }
+            
+        }
+        var barsObj = {
+            '/main/typora/':nav_result[0],
+            '/main/产品1.0/': nav_result[1]
+        };
+        console.log(barsObj)
+        console.log(JSON.stringify(barsObj))
+        return barsObj
     }
 }
 

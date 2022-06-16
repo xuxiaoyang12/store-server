@@ -3,7 +3,7 @@ const rootPath = path.dirname(__dirname)
 // const sidebarConfig =  require("./sidebarConfig");
 //导入生成侧边栏的工具类
 const { sideBarTool } = require(path.join(__dirname, './utils/index.js'))
-
+console.log(rootPath)
 // 需要排除的一些目录
 let unDirIncludes = ['node_modules', 'assets', 'public','.vuepress','about','other','plantUML','xmind']
 // 只需要处理后缀的文件类型
@@ -41,9 +41,20 @@ module.exports = {
         // sidebar: {
         //     '/main/typora/': [
         //         {
-        //             title: '快捷键',  //组名
-        //             children: [
-        //               ['Window下快捷键','Window下快捷键'] // [0] 文件名 [1] 展示名称
+        //           "title":"首页",
+        //           "children":[
+        //             ["",""],
+        //             ["Window下快捷键","Window下快捷键"],
+        //             ["document","document"],
+        //             ["未命名","未命名"],
+        //             ["订单改造","订单改造"]
+        //           ]
+        //       },
+        //         {
+        //             "title": "快捷键",  //组名
+        //             "children": [
+        //               ["",""],
+        //               ["Window下快捷键","Window下快捷键"] // [0] 文件名 [1] 展示名称
         //             ],   //该分组下要显示的文件的目录
         //         },
         //         {
