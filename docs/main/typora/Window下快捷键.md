@@ -1,7 +1,7 @@
 [ Window下快捷键]()
 
 # Windows、Firefox、ideal、Excel下常用快捷键
-[[toc]]
+[toc]
 ## 一、Windows系统快捷键
 
 ### 1、Windows常用快捷键清单
@@ -298,7 +298,7 @@
 
 
 
-## 发布连接
+##  发布连接
 
 1、`CSDN` 发布连接：https://blog.csdn.net/MxiaXxy/article/details/124369563
 
