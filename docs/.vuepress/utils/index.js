@@ -221,6 +221,7 @@ const sideBarTool = {
             }
             let Obj = {
                 title,
+                collapsable: true,
                 children: children.length > 0 ? children : [dirname.replace(ALL_SUFFIX, '/')]
             }
             sidebars.push(Obj)
