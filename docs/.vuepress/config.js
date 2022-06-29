@@ -34,6 +34,24 @@ module.exports = {
                     // { text: 'typora', link: '/' }
                 ]
             },
+            {
+                text: '工具',
+                items: [
+                    { text: '亦枫禾木', link: 'http://124.220.25.206:3000/dist/#/' },
+                    { text: 'VSCode', link: 'http://124.220.25.206:8888/' },
+                    // { text: 'typora', link: '/' }
+                ]
+            },
+            {
+                text: '网站推荐',
+                items: [
+                    { text: '小林Coding', link: 'https://xiaolincoding.com/' },
+                    { text: 'HelloGitHub', link: 'https://hellogithub.com/' },
+                    
+
+                    // { text: 'typora', link: '/' }
+                ]
+            },
             { text: '关于', link: '/about/' },
         ],
         // 添加侧边栏

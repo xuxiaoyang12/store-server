@@ -1,1 +1,1 @@
-10 * * * * cd ~/workspace/typrea-doc/ && git pull origin master >> timer.log
+10 * * * *   cd ~/workspace/typrea-doc/ && date +"%Y-%m-%d %H:%M:%S" >> timer.log  &&  git pull origin master >> timer.log
