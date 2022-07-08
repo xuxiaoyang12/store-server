@@ -21,8 +21,8 @@ buildShell="npm run docs:build"
 includeStr="Already"
 ## 本地是否修改
 isModify="modified"
-## 构建是否成功
-isBuild="complete"
+## 构建是否成功唯一标识 从构建的日志中找出能够标识出是构建成功的操作
+isBuild="success"
 
 date=$(date '+%Y-%m-%d-%H-%M-%S')
 
