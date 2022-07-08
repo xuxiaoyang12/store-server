@@ -83,6 +83,8 @@ merge() {
 
 # 构建
 build() {
+  ## 设置环境变量
+  export NODE_OPTIONS=--openssl-legacy-provider
 	logInfo "开始构建项目 项目目录:$srcDir"
 	cd $srcDir || exit
 	## 获取构建结果
@@ -101,8 +103,7 @@ build() {
 
 # 部署
 deploy() {
-  ## 设置环境变量
-  export NODE_OPTIONS=--openssl-legacy-provider
+
 	logInfo "开始部署项目 部署文件目录:$sourceDir  目标文件路径：$targetDir"
 	cd $srcDir || exit
 	rm -rf $targetDir && cp -r $sourceDir $targetDir
