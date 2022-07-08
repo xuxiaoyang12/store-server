@@ -39,6 +39,7 @@ module.exports = {
                 items: [
                     { text: '亦枫禾木', link: 'http://124.220.25.206:3000/dist/#/' },
                     { text: 'VSCode', link: 'http://124.220.25.206:8888/' },
+                    { text: '书签栏', link: 'http://124.220.25.206:8888/' },
                     // { text: 'typora', link: '/' }
                 ]
             },
