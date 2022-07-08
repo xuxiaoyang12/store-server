@@ -89,7 +89,7 @@ build() {
 	logInfo "开始构建项目 项目目录:$srcDir"
 	cd $srcDir || exit
 	## 获取构建结果
-	buildResult=$($buildShell | grep $isBuild)
+	buildResult=`$buildShell | grep $isBuild`
   logInfo "构建结果: $buildResult"
 	if [[ "$buildResult" =~ $isBuild ]]
   then
