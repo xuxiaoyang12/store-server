@@ -23,6 +23,7 @@ includeStr="Already"
 isModify="modified"
 ## 构建是否成功唯一标识 从构建的日志中找出能够标识出是构建成功的操作
 isBuild="success"
+#isBuild="complete"
 
 date=$(date '+%Y-%m-%d-%H-%M-%S')
 
