@@ -6,12 +6,10 @@ srcDir="/home/xuxy/workspace/store-server"
 ## 原目录
 sourceDir="${srcDir}/docs/.vuepress/dist/"
 ## 目标目录
-## 文档
+  ## 文档
 targetDir="/home/xuxy/workspace/nodeApp/public/docs"
-## 组件
+  ## 组件
 #targetDir="/home/xuxy/workspace/nodeApp/public/dist"
-
-#npm run docs:build
 
 ## 构建命令
 #buildShell="npm run build"
@@ -25,6 +23,7 @@ isModify="modified"
 isBuild="success"
 #isBuild="complete"
 
+## 获取执行脚本时间
 date=$(date '+%Y-%m-%d-%H-%M-%S')
 
 ## 通用日志打印 支持颜色
