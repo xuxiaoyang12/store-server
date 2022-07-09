@@ -32,17 +32,17 @@ log() {
 }
 
 ## 彩色日志打印
-logInfo() {
+function logInfo() {
 	log 32 "$1" "$2"
 }
 
 ## 错误日志打印
-logError() {
+function logError() {
 	log 31 "$1" "$2"
 }
 
 # 合并and更新
-merge() {
+function merge() {
 
   if [ ! -d "$srcDir" ]; then
     logError "目录不存在 ： $srcDir,需要重配置项目目录"
@@ -83,7 +83,7 @@ merge() {
 
 
 # 构建
-build() {
+function build() {
   ## 设置环境变量
   export NODE_OPTIONS=--openssl-legacy-provider
 	logInfo "开始构建项目 项目目录:$srcDir"
@@ -103,7 +103,7 @@ build() {
 ## build
 
 # 部署
-deploy() {
+function deploy() {
 
 	logInfo "开始部署项目 部署文件目录:$sourceDir  目标文件路径：$targetDir"
 	cd $srcDir || exit
@@ -113,7 +113,7 @@ deploy() {
 
 # 构建+部署
 # shellcheck disable=SC2120
-buildAndDeploy() {
+function buildAndDeploy() {
 	merge $1
   isUpdate=$(echo $?)
   if [[ "$isUpdate" == 1 ]]
@@ -126,6 +126,7 @@ buildAndDeploy() {
   fi
 }
 
+## 执行器
 if [[ $1 == "merge"  ]]
 then
   ## 合并代码
