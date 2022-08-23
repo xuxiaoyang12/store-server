@@ -48,6 +48,7 @@ module.exports = {
                 items: [
                     { text: '小林Coding', link: 'https://xiaolincoding.com/' },
                     { text: 'HelloGitHub', link: 'https://hellogithub.com/' },
+                    { text: '凤凰架构', link: 'https://icyfenix.cn/' },
                     
 
                     // { text: 'typora', link: '/' }
