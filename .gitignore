@@ -4,4 +4,4 @@ target/
 *.iml
 /logs/
 node_modules/
-docs/.vuepress/dist/
+# docs/.vuepress/dist/
